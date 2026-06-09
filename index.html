@@ -12,37 +12,60 @@ const C = {
 };
 
 // ── MENU DATA ─────────────────────────────────────────────
-const STORAGE_KEY = "acaideira_menu_v1";
-const ORDERS_KEY  = "acaideira_orders_v1";
+const acaiBases = ["Açaí Tradicional","Açaí Zero","Açaí Mesclado Banana","Açaí Mesclado Ninho","Creme de Ninho","Creme de Ninho Trufado","Creme Maltine","Creme Cupuaçu","Creme de Tapioca","Creme de Morango","Creme de Guaraná","Creme de Abacaxi","Creme de Maracujá"];
+const fruits = ["Banana","Morango","Kiwi","Cereja","Coco","Abacaxi"];
+const toppings = ["Morango","Chocolate","Uva","Caramelo","Kiwi","Limão","Menta","Nutella","Leite Condensado","Choco Bis Preto","Choco Bis Branco","Cookies and Cream","Amendoim em Pedaços","Fini Dentadura","Fini Beijo","Fini Banana"];
+const accompaniments = ["Disquete","Gotas Pretas","Gotas Brancas","Choco Power","Flocos de Arroz","Jujuba","Fini","Negresco Triturado","Ovomaltine","Cereais","Granulado Colorido","Granulado Preto","Leite em Pó","Granola","Farinha Láctea","Amendoim Inteiro","Amendoim Triturado","Amendoim Colorido","Castanha","Paçoca","Passas","Bis","Canudos","Biscoito Oreo","Choco Ball","Serenata","Sonho de Valsa"];
 
-const defaultMenu = {
-  acaiBases:["Açaí Tradicional","Açaí Zero","Açaí Mesclado Banana","Açaí Mesclado Ninho","Creme de Ninho","Creme de Ninho Trufado","Creme Maltine","Creme Cupuaçu","Creme de Tapioca","Creme de Morango","Creme de Guaraná","Creme de Abacaxi","Creme de Maracujá"],
-  fruits:["Banana","Morango","Kiwi","Cereja","Coco","Abacaxi"],
-  toppings:["Morango","Chocolate","Uva","Caramelo","Kiwi","Limão","Menta","Nutella","Leite Condensado","Choco Bis Preto","Choco Bis Branco","Cookies and Cream","Amendoim em Pedaços","Fini Dentadura","Fini Beijo","Fini Banana"],
-  accompaniments:["Disquete","Gotas Pretas","Gotas Brancas","Choco Power","Flocos de Arroz","Jujuba","Fini","Negresco Triturado","Ovomaltine","Cereais","Granulado Colorido","Granulado Preto","Leite em Pó","Granola","Farinha Láctea","Amendoim Inteiro","Amendoim Triturado","Amendoim Colorido","Castanha","Paçoca","Passas","Bis","Canudos","Biscoito Oreo","Choco Ball","Serenata","Sonho de Valsa"],
-  acaiSizes:[{label:"290ml",price:12,companions:5},{label:"340ml",price:14,companions:6},{label:"480ml",price:20,companions:8}],
-  icecreamSizes:[{label:"240ml",price:10,companions:4},{label:"340ml",price:14,companions:6},{label:"480ml",price:20,companions:8}],
-  icecreamFlavors:["Morango","Chocolate","Nata","Nata Uva","Nata Goiaba","Napolitano","7 Belo","Pudim","3 Chocolate","Chocolate Meio Amargo","Chiclete com Banana","Serenata","Chocomenta"],
-  sandwiches:[
-    {name:"Hot Dog",price:8,desc:"Pão, salsicha, frango, carne, milho verde, batata palha e ovo de codorna."},
-    {name:"Hot Dog Carne na Nata",price:10,desc:"Pão, salsicha, carne na nata, milho verde, ervilha, batata palha, ovo de codorna, maionese especial e ketchup."},
-    {name:"Mix da Casa",price:8,desc:"Pão da casa, maionese especial, ketchup, salada, queijo, carne e ovo."},
-    {name:"Bacon ao Catupiry",price:8,desc:"Pão da casa, maionese especial, ketchup, salada, bacon, queijo, carne e catupiry."},
-    {name:"4 Queijos",price:8,desc:"Pão da casa, maionese especial, ketchup, salada, carne, queijo, catupiry, cheddar e coalho."},
-    {name:"Tubá à Calabresa",price:8,desc:"Pão da casa, maionese especial, ketchup, salada, calabresa, carne, queijo e cheddar."},
-    {name:"Filé ao Cheddar",price:10,desc:"Pão da casa, maionese especial, ketchup, salada, filé de carne, queijo, carne e cheddar."},
-    {name:"Frango Topzão",price:12,desc:"Pão da casa, maionese especial, ketchup, salada, frango, salsicha, queijo e carne."},
-    {name:"Sertanejo",price:14,desc:"Pão da casa, maionese especial, ketchup, salada, queijo coalho, carne, catupiry e carne de sol."},
-    {name:"Salmão O Top",price:15,desc:"Pão da casa, maionese especial, ketchup, salada, 2 carnes, calabresa, bacon, queijo, ovo e cheddar."},
-    {name:"X-Monstro",price:18,desc:"Pão da casa, maionese especial, ketchup, salada, carne artesanal, ovo, queijo, frango, salsicha, cheddar e bacon."},
-    {name:"Blackout",price:18,desc:"Pão da casa, maionese especial, ketchup, salada, carne artesanal, calabresa, bacon, filé de carne, queijo, ovo e catupiry."},
-  ],
-  salgados:[{name:"Coxinha",price:7},{name:"Rizole",price:7},{name:"Enroladinho",price:7},{name:"Pastel de Forno",price:7},{name:"Empada",price:7},{name:"Bola de Ovo",price:7}],
-  milkshakes:[{name:"Morango",price:17},{name:"Chocolate",price:17},{name:"Ovomaltine",price:17}],
-  juices:[{name:"Uva",price:6},{name:"Morango",price:6},{name:"Maracujá",price:6},{name:"Laranja Natural",price:7},{name:"Graviola",price:6},{name:"Goiaba",price:6},{name:"Cajá",price:6},{name:"Acerola",price:6},{name:"Abacaxi",price:6},{name:"Mangaba",price:6}],
-  drinks:[{name:"Água Mineral",price:2},{name:"Água com Gás",price:4},{name:"Refrigerante 1L",price:10},{name:"Refrigerante Lata",price:6},{name:"Refrigerante KS",price:6},{name:"Refri PET 250ml",price:4},{name:"Coca-Cola 600ml",price:8},{name:"Kapo",price:4},{name:"H2O",price:8},{name:"Aquarius Fresh",price:8}],
-  extras:[{name:"Artesanal",price:5},{name:"Carne de Sol",price:4},{name:"Filé de Carne",price:4},{name:"Frango",price:4},{name:"Ovo",price:2},{name:"Salsicha",price:2},{name:"Bacon",price:3},{name:"Calabresa",price:3},{name:"Queijo Coalho",price:3},{name:"Molho Extra",price:1}],
-};
+const acaiSizes = [
+  { label: "290ml", price: 12, companions: 5 },
+  { label: "340ml", price: 14, companions: 6 },
+  { label: "480ml", price: 20, companions: 8 },
+];
+const icecreamSizes = [
+  { label: "240ml", price: 10, companions: 4 },
+  { label: "340ml", price: 14, companions: 6 },
+  { label: "480ml", price: 20, companions: 8 },
+];
+const icecreamFlavors = ["Morango","Chocolate","Nata","Nata Uva","Nata Goiaba","Napolitano","7 Belo","Pudim","3 Chocolate","Chocolate Meio Amargo","Chiclete com Banana","Serenata","Chocomenta"];
+
+const sandwiches = [
+  { name:"Hot Dog", price:8, desc:"Pão, salsicha, frango, carne, milho verde, batata palha e ovo de codorna." },
+  { name:"Hot Dog Carne na Nata", price:10, desc:"Pão, salsicha, carne na nata, milho verde, ervilha, batata palha, ovo de codorna, maionese especial e ketchup." },
+  { name:"Mix da Casa", price:8, desc:"Pão da casa, maionese especial, ketchup, salada, queijo, carne e ovo." },
+  { name:"Bacon ao Catupiry", price:8, desc:"Pão da casa, maionese especial, ketchup, salada, bacon, queijo, carne e catupiry." },
+  { name:"4 Queijos", price:8, desc:"Pão da casa, maionese especial, ketchup, salada, carne, queijo, catupiry, cheddar e coalho." },
+  { name:"Tubá à Calabresa", price:8, desc:"Pão da casa, maionese especial, ketchup, salada, calabresa, carne, queijo e cheddar." },
+  { name:"Filé ao Cheddar", price:10, desc:"Pão da casa, maionese especial, ketchup, salada, filé de carne, queijo, carne e cheddar." },
+  { name:"Frango Topzão", price:12, desc:"Pão da casa, maionese especial, ketchup, salada, frango, salsicha, queijo e carne." },
+  { name:"Sertanejo", price:14, desc:"Pão da casa, maionese especial, ketchup, salada, queijo coalho, carne, catupiry e carne de sol." },
+  { name:"Salmão O Top", price:15, desc:"Pão da casa, maionese especial, ketchup, salada, 2 carnes, calabresa, bacon, queijo, ovo e cheddar." },
+  { name:"X-Monstro", price:18, desc:"Pão da casa, maionese especial, ketchup, salada, carne artesanal, ovo, queijo, frango, salsicha, cheddar e bacon." },
+  { name:"Blackout", price:18, desc:"Pão da casa, maionese especial, ketchup, salada, carne artesanal, calabresa, bacon, filé de carne, queijo, ovo e catupiry." },
+];
+
+const salgados = [
+  { name:"Coxinha", price:7 },{ name:"Rizole", price:7 },{ name:"Enroladinho", price:7 },
+  { name:"Pastel de Forno", price:7 },{ name:"Empada", price:7 },{ name:"Bola de Ovo", price:7 },
+];
+const milkshakes = [
+  { name:"Morango", price:17 },{ name:"Chocolate", price:17 },{ name:"Ovomaltine", price:17 },
+];
+const juices = [
+  { name:"Uva", price:6 },{ name:"Morango", price:6 },{ name:"Maracujá", price:6 },
+  { name:"Laranja Natural", price:7 },{ name:"Graviola", price:6 },{ name:"Goiaba", price:6 },
+  { name:"Cajá", price:6 },{ name:"Acerola", price:6 },{ name:"Abacaxi", price:6 },{ name:"Mangaba", price:6 },
+];
+const drinks = [
+  { name:"Água Mineral", price:2 },{ name:"Água com Gás", price:4 },{ name:"Refrigerante 1L", price:10 },
+  { name:"Refrigerante Lata", price:6 },{ name:"Refrigerante KS", price:6 },{ name:"Refri PET 250ml", price:4 },
+  { name:"Coca-Cola 600ml", price:8 },{ name:"Kapo", price:4 },{ name:"H2O", price:8 },{ name:"Aquarius Fresh", price:8 },
+];
+const extras = [
+  { name:"Artesanal", price:5 },{ name:"Carne de Sol", price:4 },{ name:"Filé de Carne", price:4 },
+  { name:"Frango", price:4 },{ name:"Ovo", price:2 },{ name:"Salsicha", price:2 },
+  { name:"Bacon", price:3 },{ name:"Calabresa", price:3 },{ name:"Queijo Coalho", price:3 },{ name:"Molho Extra", price:1 },
+];
 
 const categories = [
   { id:"acai", emoji:"🫐", label:"Açaí" },
@@ -71,37 +94,6 @@ function Logo({ size = 48 }) {
       </div>
     </div>
   );
-}
-
-// ── LOAD MENU FROM STORAGE ────────────────────────────────
-function useMenu() {
-  const [menu, setMenu] = useState(defaultMenu);
-  useEffect(() => {
-    (async () => {
-      try {
-        const m = await window.storage.get(STORAGE_KEY, true);
-        if (m) setMenu(JSON.parse(m.value));
-      } catch {}
-    })();
-    const interval = setInterval(async () => {
-      try {
-        const m = await window.storage.get(STORAGE_KEY, true);
-        if (m) setMenu(JSON.parse(m.value));
-      } catch {}
-    }, 10000);
-    return () => clearInterval(interval);
-  }, []);
-  return menu;
-}
-
-// ── SAVE ORDER TO STORAGE ─────────────────────────────────
-async function saveOrder(orderData) {
-  try {
-    let orders = [];
-    try { const o = await window.storage.get(ORDERS_KEY, true); if (o) orders = JSON.parse(o.value); } catch {}
-    orders = [{ ...orderData, id: Date.now(), date: new Date().toLocaleString("pt-BR") }, ...orders];
-    await window.storage.set(ORDERS_KEY, JSON.stringify(orders), true);
-  } catch {}
 }
 
 // ── CART STORE ────────────────────────────────────────────
@@ -182,7 +174,7 @@ function SectionTitle({ children, sub }) {
 }
 
 // ── ACAI BUILDER ──────────────────────────────────────────
-function AcaiBuilder({ onAdd, sizes, flavors, title, fruits: fruitsList, toppings: toppingsList, accompaniments: accompList }) {
+function AcaiBuilder({ onAdd, sizes, flavors, title }) {
   const [step, setStep] = useState(0);
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedBase, setSelectedBase] = useState(null);
@@ -282,9 +274,9 @@ function AcaiBuilder({ onAdd, sizes, flavors, title, fruits: fruitsList, topping
           </div>
 
           {[
-            { label:"🍓 Frutas", cat:"fruits", items: fruitsList || [] },
-            { label:"🍫 Coberturas", cat:"toppings", items: toppingsList || [] },
-            { label:"🍪 Acompanhamentos", cat:"accompaniments", items: accompList || [] },
+            { label:"🍓 Frutas", cat:"fruits", items: fruits },
+            { label:"🍫 Coberturas", cat:"toppings", items: toppings },
+            { label:"🍪 Acompanhamentos", cat:"accompaniments", items: accompaniments },
           ].map(({ label, cat, items }) => (
             <div key={cat} style={{ marginBottom:16 }}>
               <h4 style={{ color:C.green, marginBottom:8, fontSize:14 }}>{label}</h4>
@@ -345,8 +337,7 @@ function CartPanel({ cart, onClose }) {
     return encodeURIComponent(lines);
   };
 
-  const submitOrder = async () => {
-    await saveOrder({ client: form.name, phone: form.phone, delivery: form.delivery, payment: form.payment, obs: form.obs, total: cart.total, items: cart.items });
+  const submitOrder = () => {
     const url = `https://wa.me/5584999822489?text=${buildWhatsMsg()}`;
     window.open(url, "_blank");
     cart.clear();
@@ -491,7 +482,6 @@ export default function AcaideiraApp() {
   const [menuOpen, setMenuOpen] = useState(false);
   const cart = useCart();
   const [scrolled, setScrolled] = useState(false);
-  const menu = useMenu();
 
   useEffect(() => {
     const handle = () => setScrolled(window.scrollY > 60);
@@ -557,6 +547,7 @@ export default function AcaideiraApp() {
                    linear-gradient(180deg, ${C.darkPurple} 0%, #1a0033 100%)`,
         padding:"120px 24px 60px", textAlign:"center", position:"relative", overflow:"hidden"
       }}>
+        {/* BG decorations */}
         {[...Array(6)].map((_, i) => (
           <div key={i} style={{
             position:"absolute", borderRadius:"50%", opacity:0.06,
@@ -755,46 +746,46 @@ export default function AcaideiraApp() {
           {activeCategory === "acai" && (
             <div>
               <h3 style={{ color:C.green, marginBottom:24, fontFamily:"'Playfair Display',serif", fontSize:24 }}>🫐 Monte seu Açaí</h3>
-              <AcaiBuilder onAdd={cart.add} sizes={menu.acaiSizes} flavors={menu.acaiBases} title="Açaí" fruits={menu.fruits} toppings={menu.toppings} accompaniments={menu.accompaniments} />
+              <AcaiBuilder onAdd={cart.add} sizes={acaiSizes} flavors={acaiBases} title="Açaí" />
             </div>
           )}
 
           {activeCategory === "sorvetes" && (
             <div>
               <h3 style={{ color:C.green, marginBottom:24, fontFamily:"'Playfair Display',serif", fontSize:24 }}>🍦 Monte seu Sorvete</h3>
-              <AcaiBuilder onAdd={cart.add} sizes={menu.icecreamSizes} flavors={menu.icecreamFlavors} title="Sorvete" fruits={menu.fruits} toppings={menu.toppings} accompaniments={menu.accompaniments} />
+              <AcaiBuilder onAdd={cart.add} sizes={icecreamSizes} flavors={icecreamFlavors} title="Sorvete" />
             </div>
           )}
 
           {activeCategory === "sanduiches" && (
             <div>
               <h3 style={{ color:C.green, marginBottom:24, fontFamily:"'Playfair Display',serif", fontSize:24 }}>🥪 Sanduíches</h3>
-              <SimpleList items={menu.sandwiches} emoji="🥪" />
+              <SimpleList items={sandwiches} emoji="🥪" />
               <h3 style={{ color:C.green, margin:"32px 0 16px", fontFamily:"'Playfair Display',serif", fontSize:20 }}>🥐 Salgados</h3>
-              <SimpleList items={menu.salgados} emoji="🥐" />
+              <SimpleList items={salgados} emoji="🥐" />
               <h3 style={{ color:C.green, margin:"24px 0 12px", fontFamily:"'Playfair Display',serif", fontSize:16 }}>➕ Acréscimos para Sanduíches</h3>
-              <SimpleList items={menu.extras} emoji="➕" />
+              <SimpleList items={extras} emoji="➕" />
             </div>
           )}
 
           {activeCategory === "salgados" && (
             <div>
               <h3 style={{ color:C.green, marginBottom:24, fontFamily:"'Playfair Display',serif", fontSize:24 }}>🥐 Salgados</h3>
-              <SimpleList items={menu.salgados} emoji="🥐" />
+              <SimpleList items={salgados} emoji="🥐" />
             </div>
           )}
 
           {activeCategory === "milkshakes" && (
             <div>
               <h3 style={{ color:C.green, marginBottom:24, fontFamily:"'Playfair Display',serif", fontSize:24 }}>🥤 Milk Shakes</h3>
-              <SimpleList items={menu.milkshakes} emoji="🥤" />
+              <SimpleList items={milkshakes} emoji="🥤" />
             </div>
           )}
 
           {activeCategory === "sucos" && (
             <div>
               <h3 style={{ color:C.green, marginBottom:24, fontFamily:"'Playfair Display',serif", fontSize:24 }}>🍹 Sucos</h3>
-              <SimpleList items={menu.juices} emoji="🍹" />
+              <SimpleList items={juices} emoji="🍹" />
               <h3 style={{ color:C.green, margin:"32px 0 16px", fontFamily:"'Playfair Display',serif", fontSize:20 }}>🥛 Vitaminas — R$ 7,00</h3>
               <Card><p style={{ color:"rgba(255,255,255,0.7)", margin:0 }}>Todos os sabores disponíveis — R$ 7,00 cada</p></Card>
             </div>
@@ -803,7 +794,7 @@ export default function AcaideiraApp() {
           {activeCategory === "bebidas" && (
             <div>
               <h3 style={{ color:C.green, marginBottom:24, fontFamily:"'Playfair Display',serif", fontSize:24 }}>🥃 Bebidas</h3>
-              <SimpleList items={menu.drinks} emoji="🥃" />
+              <SimpleList items={drinks} emoji="🥃" />
             </div>
           )}
         </div>
